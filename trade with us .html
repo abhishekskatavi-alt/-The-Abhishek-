@@ -1,0 +1,618 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TradePro | Trading Dashboard</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #0b1120;
+    color: #e5e7eb;
+}
+
+header {
+    background: #111c30;
+    padding: 20px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #26344a;
+}
+
+.logo {
+    color: #22c55e;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+nav a {
+    color: #cbd5e1;
+    text-decoration: none;
+    margin-left: 18px;
+    font-size: 14px;
+}
+
+nav a:hover {
+    color: #22c55e;
+}
+
+.container {
+    width: 90%;
+    max-width: 1400px;
+    margin: 30px auto;
+}
+
+.welcome {
+    margin-bottom: 25px;
+}
+
+.welcome h1 {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.muted {
+    color: #94a3b8;
+    font-size: 14px;
+}
+
+.section-title {
+    margin: 30px 0 15px;
+    font-size: 21px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+    gap: 18px;
+}
+
+.card {
+    background: #142137;
+    padding: 22px;
+    border-radius: 12px;
+    border: 1px solid #26344a;
+}
+
+.card h3 {
+    color: #94a3b8;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.price {
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.green {
+    color: #22c55e;
+}
+
+.red {
+    color: #ef4444;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #142137;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid #29374c;
+    font-size: 14px;
+}
+
+th {
+    color: #94a3b8;
+    background: #1b2a40;
+}
+
+input, select {
+    padding: 12px;
+    background: #0b1120;
+    border: 1px solid #334155;
+    color: white;
+    border-radius: 7px;
+    width: 100%;
+    margin: 8px 0;
+}
+
+button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 7px;
+    background: #16a34a;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #15803d;
+}
+
+.panel {
+    background: #142137;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #26344a;
+    margin-bottom: 20px;
+}
+
+.grid-two {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+    gap: 20px;
+}
+
+.result {
+    margin-top: 15px;
+    color: #22c55e;
+    line-height: 1.8;
+}
+
+ul {
+    padding-left: 20px;
+    line-height: 2;
+    color: #cbd5e1;
+}
+
+footer {
+    text-align: center;
+    padding: 25px;
+    margin-top: 40px;
+    background: #111c30;
+    color: #94a3b8;
+}
+
+.chart {
+    width: 100%;
+    height: 250px;
+}
+
+canvas {
+    width: 100%;
+    height: 250px;
+}
+
+@media(max-width:700px) {
+    header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    nav a {
+        margin: 0;
+    }
+
+    .container {
+        width: 94%;
+    }
+
+    table {
+        min-width: 600px;
+    }
+
+    .table-wrap {
+        overflow-x: auto;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">TRADEPRO.</div>
+    <nav>
+        <a href="#dashboard">Dashboard</a>
+        <a href="#watchlist">Watchlist</a>
+        <a href="#calculator">Calculator</a>
+        <a href="#journal">Journal</a>
+        <a href="#education">Learn</a>
+    </nav>
+</header>
+
+<div class="container">
+
+<section class="welcome" id="dashboard">
+    <h1>Trading Dashboard</h1>
+    <p class="muted">
+        Your complete market research and trading learning workspace.
+    </p>
+    <p class="muted" id="date"></p>
+</section>
+
+<h2 class="section-title">Market Overview</h2>
+
+<div class="cards">
+
+<div class="card">
+    <h3>NIFTY 50</h3>
+    <div class="price">24,500.00</div>
+    <span class="green">+0.85% ▲</span>
+</div>
+
+<div class="card">
+    <h3>SENSEX</h3>
+    <div class="price">80,500.00</div>
+    <span class="green">+0.62% ▲</span>
+</div>
+
+<div class="card">
+    <h3>BANK NIFTY</h3>
+    <div class="price">55,200.00</div>
+    <span class="red">-0.32% ▼</span>
+</div>
+
+<div class="card">
+    <h3>INDIA VIX</h3>
+    <div class="price">14.25</div>
+    <span class="red">-1.20% ▼</span>
+</div>
+
+</div>
+
+<h2 class="section-title">Market Price Chart</h2>
+
+<div class="panel">
+    <h3>Sample Market Movement</h3>
+    <p class="muted">Illustrative data, not live prices.</p>
+    <div class="chart">
+        <canvas id="marketChart"></canvas>
+    </div>
+</div>
+
+<h2 class="section-title" id="watchlist">Stock Watchlist</h2>
+
+<div class="panel">
+    <div class="table-wrap">
+    <table>
+        <thead>
+            <tr>
+                <th>Stock</th>
+                <th>Price (₹)</th>
+                <th>Change</th>
+                <th>Market</th>
+            </tr>
+        </thead>
+        <tbody id="stockTable"></tbody>
+    </table>
+    </div>
+    <p class="muted">All displayed stock prices below are demonstration values.</p>
+</div>
+
+<h2 class="section-title" id="calculator">
+    Trading Risk Calculator
+</h2>
+
+<div class="grid-two">
+
+<div class="panel">
+    <h3>Position Size Calculator</h3>
+
+    <label>Account Balance (₹)</label>
+    <input type="number" id="balance" value="100000">
+
+    <label>Risk Percentage (%)</label>
+    <input type="number" id="risk" value="1">
+
+    <label>Entry Price (₹)</label>
+    <input type="number" id="entry" value="500">
+
+    <label>Stop Loss Price (₹)</label>
+    <input type="number" id="stop" value="490">
+
+    <button onclick="calculateRisk()">Calculate Risk</button>
+
+    <div class="result" id="riskResult"></div>
+</div>
+
+<div class="panel">
+    <h3>Risk / Reward Calculator</h3>
+
+    <label>Entry Price</label>
+    <input type="number" id="rrEntry" value="100">
+
+    <label>Stop Loss</label>
+    <input type="number" id="rrStop" value="95">
+
+    <label>Target Price</label>
+    <input type="number" id="rrTarget" value="115">
+
+    <button onclick="calculateRR()">Calculate Ratio</button>
+
+    <div class="result" id="rrResult"></div>
+</div>
+
+</div>
+
+<h2 class="section-title" id="journal">Trading Journal</h2>
+
+<div class="panel">
+    <h3>Record Your Practice Trades</h3>
+
+    <input id="tradeName" placeholder="Stock name">
+    <select id="tradeType">
+        <option value="BUY">BUY</option>
+        <option value="SELL">SELL</option>
+    </select>
+    <input type="number" id="tradeEntry" placeholder="Entry price">
+    <input type="number" id="tradeExit" placeholder="Exit price">
+
+    <button onclick="addTrade()">Save Trade</button>
+
+    <div class="table-wrap">
+    <table style="margin-top:20px">
+        <thead>
+            <tr>
+                <th>Stock</th>
+                <th>Type</th>
+                <th>Entry</th>
+                <th>Exit</th>
+                <th>Difference</th>
+            </tr>
+        </thead>
+        <tbody id="journalTable"></tbody>
+    </table>
+    </div>
+</div>
+
+<h2 class="section-title">Important Trading Information</h2>
+
+<div class="grid-two" id="education">
+
+<div class="panel">
+    <h3>Technical Analysis</h3>
+    <ul>
+        <li>Support and Resistance</li>
+        <li>Trend Lines</li>
+        <li>Moving Averages</li>
+        <li>RSI Indicator</li>
+        <li>MACD Indicator</li>
+        <li>Volume Analysis</li>
+        <li>Candlestick Patterns</li>
+    </ul>
+</div>
+
+<div class="panel">
+    <h3>Fundamental Analysis</h3>
+    <ul>
+        <li>Company Revenue</li>
+        <li>Net Profit</li>
+        <li>EPS</li>
+        <li>P/E Ratio</li>
+        <li>Debt-to-Equity Ratio</li>
+        <li>ROE and ROCE</li>
+        <li>Cash Flow</li>
+    </ul>
+</div>
+
+<div class="panel">
+    <h3>Risk Management</h3>
+    <ul>
+        <li>Always understand your risk</li>
+        <li>Learn position sizing</li>
+        <li>Understand stop losses</li>
+        <li>Avoid excessive leverage</li>
+        <li>Maintain a trading journal</li>
+        <li>Practice with a simulator</li>
+    </ul>
+</div>
+
+<div class="panel">
+    <h3>Trading Strategies</h3>
+    <ul>
+        <li>Intraday Trading</li>
+        <li>Swing Trading</li>
+        <li>Position Trading</li>
+        <li>Breakout Strategy</li>
+        <li>Trend Following</li>
+        <li>Price Action</li>
+    </ul>
+</div>
+
+</div>
+
+<h2 class="section-title">Market News & Research</h2>
+
+<div class="panel">
+    <h3>Research Checklist</h3>
+    <ul>
+        <li>Check NSE and BSE market announcements.</li>
+        <li>Review company quarterly results.</li>
+        <li>Follow RBI policy announcements.</li>
+        <li>Monitor inflation and interest rates.</li>
+        <li>Understand global market movements.</li>
+    </ul>
+    <p class="muted">
+        This section is a research checklist, not a live news feed.
+    </p>
+</div>
+
+</div>
+
+<footer>
+    <h3>TRADEPRO.</h3>
+    <p>Professional Trading Research Dashboard</p>
+    <p>Educational purposes only. Not financial advice.</p>
+    <p>© 2026 TradePro. All Rights Reserved.</p>
+</footer>
+
+<script>
+
+// Date
+document.getElementById("date").textContent =
+"Today: " + new Date().toLocaleDateString("en-IN");
+
+// Sample stocks
+const stocks = [
+    {name:"SBI",price:850,change:"+1.25%",type:"Positive"},
+    {name:"RELIANCE",price:1250,change:"+0.75%",type:"Positive"},
+    {name:"TCS",price:3200,change:"-0.45%",type:"Negative"},
+    {name:"INFOSYS",price:1450,change:"+0.85%",type:"Positive"},
+    {name:"HDFC BANK",price:1700,change:"-0.25%",type:"Negative"}
+];
+
+const stockTable = document.getElementById("stockTable");
+
+stocks.forEach(stock => {
+    stockTable.innerHTML += `
+    <tr>
+        <td>${stock.name}</td>
+        <td>₹${stock.price}</td>
+        <td class="${stock.type === 'Positive' ? 'green':'red'}">
+            ${stock.change}
+        </td>
+        <td>Indian Equity</td>
+    </tr>`;
+});
+
+// Risk calculator
+function calculateRisk() {
+
+    const balance = Number(document.getElementById("balance").value);
+    const risk = Number(document.getElementById("risk").value);
+    const entry = Number(document.getElementById("entry").value);
+    const stop = Number(document.getElementById("stop").value);
+
+    const output = document.getElementById("riskResult");
+
+    if(balance <= 0 || risk <= 0 || risk > 100 ||
+       entry <= 0 || stop <= 0 || entry === stop) {
+        output.textContent = "Enter valid positive values and a distinct stop loss.";
+        return;
+    }
+
+    const riskAmount = balance * risk / 100;
+    const unitRisk = Math.abs(entry - stop);
+    const quantity = Math.floor(riskAmount / unitRisk);
+
+    output.innerHTML = `
+        Maximum planned risk: ₹${riskAmount.toFixed(2)}<br>
+        Risk per share: ₹${unitRisk.toFixed(2)}<br>
+        Illustrative quantity: ${quantity}<br>
+        Approximate position value: ₹${(quantity * entry).toFixed(2)}
+    `;
+}
+
+// Risk reward calculator
+function calculateRR() {
+
+    const entry = Number(document.getElementById("rrEntry").value);
+    const stop = Number(document.getElementById("rrStop").value);
+    const target = Number(document.getElementById("rrTarget").value);
+
+    const output = document.getElementById("rrResult");
+
+    if(entry <= 0 || stop <= 0 || target <= 0 ||
+       entry === stop || entry === target) {
+        output.textContent = "Enter valid prices.";
+        return;
+    }
+
+    const risk = Math.abs(entry - stop);
+    const reward = Math.abs(target - entry);
+    const ratio = reward / risk;
+
+    output.innerHTML = `
+        Risk: ₹${risk.toFixed(2)}<br>
+        Potential reward: ₹${reward.toFixed(2)}<br>
+        Reward-to-risk ratio: 1:${ratio.toFixed(2)}
+    `;
+}
+
+// Trading journal
+function addTrade() {
+
+    const name = document.getElementById("tradeName").value;
+    const type = document.getElementById("tradeType").value;
+    const entry = Number(document.getElementById("tradeEntry").value);
+    const exit = Number(document.getElementById("tradeExit").value);
+
+    if(!name || entry <= 0 || exit <= 0) {
+        alert("Please enter valid trade information.");
+        return;
+    }
+
+    const difference = type === "BUY"
+        ? exit-entry
+        : entry-exit;
+
+    const row = document.createElement("tr");
+
+    [name,type,entry.toFixed(2),exit.toFixed(2),
+     "₹"+difference.toFixed(2)].forEach(value => {
+        const cell = document.createElement("td");
+        cell.textContent = value;
+        row.appendChild(cell);
+    });
+
+    document.getElementById("journalTable").appendChild(row);
+
+    document.getElementById("tradeName").value = "";
+}
+
+// Sample chart
+const canvas = document.getElementById("marketChart");
+const ctx = canvas.getContext("2d");
+
+function drawChart() {
+
+    const width = canvas.clientWidth;
+    const height = 250;
+    const ratio = window.devicePixelRatio || 1;
+
+    canvas.width = width * ratio;
+    canvas.height = height * ratio;
+
+    ctx.scale(ratio,ratio);
+
+    const values = [40,55,48,68,60,80,72,95,85,110,100,125];
+
+    ctx.strokeStyle = "#22c55e";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+
+    values.forEach((value,index) => {
+        const x = index * width/(values.length-1);
+        const y = height - value - 20;
+
+        if(index === 0) ctx.moveTo(x,y);
+        else ctx.lineTo(x,y);
+    });
+
+    ctx.stroke();
+}
+
+drawChart();
+
+window.addEventListener("resize", drawChart);
+
+</script>
+
+</body>
+</html>
